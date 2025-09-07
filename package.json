@@ -1,0 +1,22 @@
+{
+  "name": "level-system-rpg",
+  "version": "1.0.0",
+  "description": "A gamified level system with character progression",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Build complete'",
+    "android": "npx cap run android",
+    "ios": "npx cap run ios",
+    "sync": "npx cap sync"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.0.0"
+  },
+  "dependencies": {
+    "@capacitor/core": "^5.0.0",
+    "@capacitor/android": "^5.0.0",
+    "@capacitor/ios": "^5.0.0",
+    "@capacitor/splash-screen": "^5.0.0",
+    "@capacitor/status-bar": "^5.0.0"
+  }
+}

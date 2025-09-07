@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level System</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#101511">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="hero-card">
+            <div class="char-header">
+                <h1 id="char-name">Hero</h1>
+                <span class="level-badge" id="level">Lv.1</span>
+            </div>
+            <div class="stats-row">
+                <span id="xp">0 XP</span>
+                <span id="coins">0 Coins</span>
+                <span id="sp">0 SP</span>
+            </div>
+            <div class="progress-text" id="progress">Today: 0/0 quests completed</div>
+        </header>
+
+        <!-- Day Navigation -->
+        <div class="day-nav">
+            <button id="prev-day">‹</button>
+            <span id="current-day">Monday</span>
+            <button id="next-day">›</button>
+        </div>
+
+        <!-- Main Content -->
+        <main id="main-content">
+            <div id="tasks-container"></div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button data-screen="home" class="nav-btn active">⌂</button>
+            <button data-screen="stats" class="nav-btn">▤</button>
+            <button data-screen="skills" class="nav-btn">◆</button>
+            <button data-screen="challenges" class="nav-btn">🏆</button>
+            <button id="add-quest" class="nav-btn add-btn">+</button>
+            <button data-screen="analytics" class="nav-btn">📊</button>
+            <button data-screen="achievements" class="nav-btn">★</button>
+            <button data-screen="profile" class="nav-btn">☺</button>
+            <button data-screen="settings" class="nav-btn">⚙</button>
+        </nav>
+    </div>
+
+    <!-- Quest Modal -->
+    <div id="quest-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Create New Quest</h2>
+            
+            <div class="form-group">
+                <label for="quest-name">Quest Name</label>
+                <input type="text" id="quest-name" placeholder="Enter quest name...">
+            </div>
+            
+            <div class="form-group">
+                <label for="quest-desc">Description</label>
+                <textarea id="quest-desc" placeholder="Optional description..."></textarea>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="quest-xp">XP Reward</label>
+                    <input type="number" id="quest-xp" value="10" min="1" max="1000" placeholder="10">
+                </div>
+                <div class="form-group">
+                    <label for="quest-difficulty">Difficulty</label>
+                    <select id="quest-difficulty">
+                        <option value="Easy">Easy (0.7x rewards)</option>
+                        <option value="Normal" selected>Normal (1x rewards)</option>
+                        <option value="Hard">Hard (1.5x rewards)</option>
+                        <option value="Mega">Mega (10x rewards)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="quest-day">Assign to Day</label>
+                <select id="quest-day">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                    <option value="Challenge">Challenge</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Stat Boosts</label>
+                <div class="stat-checkboxes" id="stat-checkboxes"></div>
+            </div>
+            
+            <div class="modal-buttons">
+                <button id="cancel-quest">Cancel</button>
+                <button id="delete-quest" class="delete" style="display: none;">Delete</button>
+                <button id="save-quest" class="primary">Create Quest</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stat Edit Modal -->
+    <div id="stat-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="stat-modal-title">Edit Stat</h2>
+            
+            <div class="form-group">
+                <label for="stat-name">Stat Name</label>
+                <input type="text" id="stat-name" placeholder="Enter stat name...">
+            </div>
+            
+            <div class="modal-buttons">
+                <button id="cancel-stat">Cancel</button>
+                <button id="delete-stat" class="delete">Delete Stat</button>
+                <button id="save-stat" class="primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
