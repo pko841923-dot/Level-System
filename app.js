@@ -2046,12 +2046,7 @@ class LevelSystem {
                 </div>
             </div>
             
-            <div class="settings-section">
-                <h3>App Installation</h3>
-                <div class="settings-actions">
-                    <button class="settings-btn" onclick="app.showInstallButton()">📱 Install as App</button>
-                </div>
-            </div>
+
             
             <div class="settings-section">
                 <h3>Data Management</h3>
@@ -2092,6 +2087,9 @@ class LevelSystem {
         if (confirm('Are you sure you want to reset ALL data? This cannot be undone!\n\nThis will delete:\n- All quests and progress\n- Character stats and level\n- All achievements\n- Skill points and upgrades')) {
             localStorage.removeItem('levelSystemData');
             localStorage.removeItem('lastMidnightReset');
+            localStorage.removeItem('levelSystemOfflineChanges');
+            localStorage.removeItem('selectedTheme');
+            localStorage.clear();
             location.reload();
         }
     }
@@ -2195,19 +2193,7 @@ class LevelSystem {
             navigator.serviceWorker.register('sw.js');
         }
         
-        // Install prompt
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-        
-        this.showInstallButton = () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt = null;
-            }
-        };
+        // Service worker registration only
     }
     updateDailyStreak() {
         const today = new Date().toDateString();
@@ -3037,52 +3023,10 @@ class LevelSystem {
     }
 
     setupOfflineMode() {
-        // Check online status
-        this.updateOnlineStatus();
-        
+        // Simplified offline mode without UI indicators
         window.addEventListener('online', () => {
-            this.updateOnlineStatus();
             this.syncOfflineData();
         });
-        
-        window.addEventListener('offline', () => {
-            this.updateOnlineStatus();
-        });
-    }
-
-    updateOnlineStatus() {
-        const isOnline = navigator.onLine;
-        const statusElement = document.getElementById('online-status');
-        
-        if (!statusElement) {
-            const status = document.createElement('div');
-            status.id = 'online-status';
-            status.style.cssText = `
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                padding: 5px 10px;
-                border-radius: 4px;
-                font-size: 12px;
-                font-weight: bold;
-                z-index: 1000;
-                transition: all 0.3s ease;
-            `;
-            document.body.appendChild(status);
-        }
-        
-        const status = document.getElementById('online-status');
-        if (isOnline) {
-            status.textContent = '🟢 Online';
-            status.style.background = '#d4edda';
-            status.style.color = '#155724';
-            status.style.border = '1px solid #c3e6cb';
-        } else {
-            status.textContent = '🔴 Offline';
-            status.style.background = '#f8d7da';
-            status.style.color = '#721c24';
-            status.style.border = '1px solid #f5c6cb';
-        }
     }
 
     syncOfflineData() {
